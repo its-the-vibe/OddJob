@@ -43,7 +43,10 @@ func main() {
 		log.Fatalf("redis ping failed: %v", err)
 	}
 
-	registry := dispatcher.NewRegistry(dispatcher.NewHelloWorldTransformer())
+	registry := dispatcher.NewRegistry(
+		dispatcher.NewHelloWorldTransformer(),
+		dispatcher.NewSantanderStmtdateTransformer(),
+	)
 	service := dispatcher.NewService(cfg, client, registry, log.Default())
 
 	if err := service.Run(ctx); err != nil {
