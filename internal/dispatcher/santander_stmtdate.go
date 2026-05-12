@@ -35,7 +35,9 @@ func (s *SantanderStmtdateTransformer) ToPoppit(task TaskMessage, cfg config.Pop
 		Type:     cfg.Type,
 		Dir:      cfg.Dir,
 		Commands: []string{fmt.Sprintf("stmtdate -rename %q", filename)},
-		Metadata: task.Metadata,
+		Metadata: map[string]string{
+			"taskName": santanderStmtdateTaskName,
+		},
 	}, nil
 }
 
