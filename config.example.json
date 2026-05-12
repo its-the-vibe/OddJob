@@ -1,0 +1,22 @@
+{
+  "redis": {
+    "addr": "redis.example.com:6379",
+    "username": "",
+    "password": "",
+    "db": 0
+  },
+  "queues": {
+    "taskQueue": "oddjob:tasks",
+    "poppitQueue": "poppit:commands"
+  },
+  "poppit": {
+    "repo": "its-the-vibe/OddJob",
+    "branch": "refs/heads/main",
+    "dir": "/workspace",
+    "type": "odd:job",
+    "outputChannel": "poppit:output"
+  },
+  "poll": {
+    "intervalSeconds": 1
+  }
+}
