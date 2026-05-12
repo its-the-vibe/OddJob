@@ -26,9 +26,13 @@ func TestHelloWorldToPoppit(t *testing.T) {
 	if len(msg.Commands) != 1 {
 		t.Fatalf("expected 1 command, got %d", len(msg.Commands))
 	}
-	if msg.Metadata["taskName"] != helloTaskName {
-		t.Fatalf("expected taskName metadata %q, got %q", helloTaskName, msg.Metadata["taskName"])
+	// if msg.Metadata["taskName"] != helloTaskName {
+	// 	t.Fatalf("expected taskName metadata %q, got %q", helloTaskName, msg.Metadata["taskName"])
+	// }
+	if msg.Metadata["name"] != "OddJob" {
+		t.Fatalf("expected name metadata %q, got %q", "OddJob", msg.Metadata["name"])
 	}
+
 }
 
 func TestHelloWorldFromPoppitChainsWhenRequested(t *testing.T) {

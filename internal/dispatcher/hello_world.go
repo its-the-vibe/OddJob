@@ -38,9 +38,7 @@ func (h *HelloWorldTransformer) ToPoppit(task TaskMessage, cfg config.PoppitConf
 		Type:     cfg.Type,
 		Dir:      cfg.Dir,
 		Commands: []string{fmt.Sprintf("echo %q", message)},
-		Metadata: map[string]string{
-			"taskName": helloTaskName,
-		},
+		Metadata: task.Metadata,
 	}, nil
 }
 
