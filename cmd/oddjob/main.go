@@ -46,6 +46,7 @@ func main() {
 	registry := dispatcher.NewRegistry(
 		dispatcher.NewHelloWorldTransformer(),
 		dispatcher.NewSantanderStmtdateTransformer(),
+		dispatcher.NewSantanderPdftoppmTransformer(),
 	)
 	service := dispatcher.NewService(cfg, client, registry, log.Default())
 

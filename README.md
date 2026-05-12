@@ -14,6 +14,10 @@ A simple, extensible Go task dispatcher that bridges Redis task messages to the 
   - transform task payloads into Poppit command payloads
   - `RPUSH` into configurable Poppit queue
   - subscribe to Poppit output channel and optionally chain downstream tasks
+- Santander statement pipeline:
+  - `santander:stmtdate` runs `stmtdate -rename "<file>"`
+  - chains to `santander:pdftoppm` using parsed `stmtdate` output
+  - `santander:pdftoppm` runs `pdftoppm -png -r 300 "<file>" -f 2 "<file-without-ext>"` in the input file's base directory
 - Extensible task transformer framework with a `hello:world` reference transformer
 - Dockerfile with `scratch` runtime image
 - Docker Compose service with `read_only: true`
