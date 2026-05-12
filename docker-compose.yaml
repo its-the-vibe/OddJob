@@ -1,0 +1,13 @@
+services:
+  oddjob:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: oddjob:latest
+    read_only: true
+    restart: unless-stopped
+    env_file:
+      - .env
+    volumes:
+      - ./config.json:/config.json:ro
+    command: ["-config", "/config.json"]
