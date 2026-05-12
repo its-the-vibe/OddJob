@@ -35,7 +35,7 @@ func TestSantanderStmtdateToPoppit(t *testing.T) {
 	}
 }
 
-func TestSantanderStmtdateToPoppitRequiresInputFile(t *testing.T) {
+func TestSantanderStmtdateToPoppitReturnsErrorWhenInputFileEmpty(t *testing.T) {
 	transformer := NewSantanderStmtdateTransformer()
 	_, err := transformer.ToPoppit(TaskMessage{
 		TaskName: santanderStmtdateTaskName,
