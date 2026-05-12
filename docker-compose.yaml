@@ -5,7 +5,9 @@ services:
       dockerfile: Dockerfile
     image: oddjob:latest
     read_only: true
-    restart: unless-stopped
+    restart: on-failure:10
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     env_file:
       - .env
     volumes:
