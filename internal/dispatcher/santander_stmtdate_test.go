@@ -18,7 +18,6 @@ func TestSantanderStmtdateToPoppit(t *testing.T) {
 	msg, err := transformer.ToPoppit(TaskMessage{
 		TaskName:  santanderStmtdateTaskName,
 		InputFile: "statement.pdf",
-		Metadata:  map[string]string{"source": "test"},
 	}, cfg)
 	if err != nil {
 		t.Fatalf("unexpected error: %v", err)
@@ -30,8 +29,8 @@ func TestSantanderStmtdateToPoppit(t *testing.T) {
 	if msg.Commands[0] != `stmtdate -rename "statement.pdf"` {
 		t.Fatalf("unexpected command: %q", msg.Commands[0])
 	}
-	if msg.Metadata["source"] != "test" {
-		t.Fatalf("expected metadata source %q, got %q", "test", msg.Metadata["source"])
+	if msg.Metadata["taskName"] != santanderStmtdateTaskName {
+		t.Fatalf("expected metadata taskName %q, got %q", santanderStmtdateTaskName, msg.Metadata["taskName"])
 	}
 }
 
