@@ -63,6 +63,24 @@ cp .env.example .env
 
 2. Update values in `config.json` (non-sensitive) and `.env` (sensitive values, e.g. `REDIS_PASSWORD`).
 
+You can define reusable aliases in `config.json` and reference them with `${aliases.<name>}` in string fields:
+
+```json
+{
+  "aliases": {
+    "baseDir": "/workspace",
+    "taskQueue": "oddjob:tasks"
+  },
+  "queues": {
+    "taskQueue": "${aliases.taskQueue}",
+    "poppitQueue": "poppit:commands"
+  },
+  "poppit": {
+    "dir": "${aliases.baseDir}"
+  }
+}
+```
+
 3. Run locally:
 
 ```bash

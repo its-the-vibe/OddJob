@@ -6,15 +6,19 @@
     "db": 0
   },
   "queues": {
-    "taskQueue": "oddjob:tasks",
+    "taskQueue": "${aliases.taskQueue}",
     "poppitQueue": "poppit:commands"
   },
   "poppit": {
     "repo": "its-the-vibe/OddJob",
     "branch": "refs/heads/main",
-    "dir": "/workspace",
+    "dir": "${aliases.baseDir}",
     "type": "odd:job",
     "outputChannel": "poppit:output"
+  },
+  "aliases": {
+    "baseDir": "/workspace",
+    "taskQueue": "oddjob:tasks"
   },
   "poll": {
     "intervalSeconds": 1
