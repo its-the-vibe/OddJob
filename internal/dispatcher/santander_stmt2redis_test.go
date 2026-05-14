@@ -32,7 +32,7 @@ func TestSantanderStmt2redisToPoppit(t *testing.T) {
 	if len(msg.Commands) != 1 {
 		t.Fatalf("expected 1 command, got %d", len(msg.Commands))
 	}
-	if msg.Commands[0] != `${stmt2redis} -f "/workspace/incoming/File-2026-03-2.tsv" -t santander` {
+	if msg.Commands[0] != `${stmt2redis} push -f "/workspace/incoming/File-2026-03-2.tsv" -t santander` {
 		t.Fatalf("unexpected command: %q", msg.Commands[0])
 	}
 	if msg.Metadata["taskName"] != santanderStmt2redisTaskName {

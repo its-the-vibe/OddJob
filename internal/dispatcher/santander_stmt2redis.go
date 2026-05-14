@@ -44,7 +44,7 @@ func (s *SantanderStmt2redisTransformer) ToPoppit(task TaskMessage, cfg config.P
 		Type:   cfg.Type,
 		Dir:    santanderStmt2redisDir,
 		Commands: []string{
-			fmt.Sprintf(`${stmt2redis} -f %q -t santander`, inputFile),
+			fmt.Sprintf(`${stmt2redis} push -f %q -t santander`, inputFile),
 		},
 		Metadata: metadata,
 	}, nil
