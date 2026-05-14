@@ -99,3 +99,31 @@ func TestResolveAliasesSubstitutesPlaceholders(t *testing.T) {
 		}
 	}
 }
+
+func TestResolveAliasesInCommands(t *testing.T) {
+	cfg := Config{
+		Aliases: map[string]string{
+			"tool": "/usr/local/bin/mytool",
+			"dir":  "/data/workspace",
+		},
+	}
+
+	commands := []string{
+		"${tool} -input ${dir}/file.pdf",
+		"echo done",
+		"${tool} --out ${dir}/out",
+	}
+
+	want := []string{
+		"/usr/local/bin/mytool -input /data/workspace/file.pdf",
+		"echo done",
+		"/usr/local/bin/mytool --out /data/workspace/out",
+	}
+
+	for i, cmd := range commands {
+		got := cfg.ResolveAliases(cmd)
+		if got != want[i] {
+			t.Errorf("command[%d]: ResolveAliases(%q) = %q, want %q", i, cmd, got, want[i])
+		}
+	}
+}

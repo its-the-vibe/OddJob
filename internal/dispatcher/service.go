@@ -81,6 +81,10 @@ func (s *Service) consumeTasks(ctx context.Context) error {
 			continue
 		}
 
+		for i, cmd := range message.Commands {
+			message.Commands[i] = s.cfg.ResolveAliases(cmd)
+		}
+
 		encoded, err := json.Marshal(message)
 		if err != nil {
 			s.logger.Printf("encode poppit message failed: %v", err)
