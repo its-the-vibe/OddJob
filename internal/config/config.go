@@ -4,14 +4,16 @@ import (
 	"encoding/json"
 	"fmt"
 	"os"
+	"strings"
 	"time"
 )
 
 type Config struct {
-	Redis  RedisConfig  `json:"redis"`
-	Queues QueueConfig  `json:"queues"`
-	Poppit PoppitConfig `json:"poppit"`
-	Poll   PollConfig   `json:"poll"`
+	Redis   RedisConfig       `json:"redis"`
+	Queues  QueueConfig       `json:"queues"`
+	Poppit  PoppitConfig      `json:"poppit"`
+	Poll    PollConfig        `json:"poll"`
+	Aliases map[string]string `json:"aliases"`
 }
 
 type RedisConfig struct {
@@ -60,11 +62,29 @@ func Load(path string) (Config, error) {
 		cfg.Poppit.Type = "odd:job"
 	}
 
+	cfg.Poppit.Repo = cfg.ResolveAliases(cfg.Poppit.Repo)
+	cfg.Poppit.Branch = cfg.ResolveAliases(cfg.Poppit.Branch)
+	cfg.Poppit.Dir = cfg.ResolveAliases(cfg.Poppit.Dir)
+	cfg.Poppit.Type = cfg.ResolveAliases(cfg.Poppit.Type)
+	cfg.Poppit.OutputChannel = cfg.ResolveAliases(cfg.Poppit.OutputChannel)
+
 	if err := cfg.validate(); err != nil {
 		return Config{}, err
 	}
 
 	return cfg, nil
+}
+
+// ResolveAliases replaces ${key} placeholders in s with the corresponding alias value.
+func (c Config) ResolveAliases(s string) string {
+	if len(c.Aliases) == 0 {
+		return s
+	}
+	pairs := make([]string, 0, len(c.Aliases)*2)
+	for key, value := range c.Aliases {
+		pairs = append(pairs, "${"+key+"}", value)
+	}
+	return strings.NewReplacer(pairs...).Replace(s)
 }
 
 func (c Config) PollInterval() time.Duration {

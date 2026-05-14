@@ -12,11 +12,16 @@
   "poppit": {
     "repo": "its-the-vibe/OddJob",
     "branch": "refs/heads/main",
-    "dir": "/workspace",
+    "dir": "${basedir}",
     "type": "odd:job",
     "outputChannel": "poppit:output"
   },
   "poll": {
     "intervalSeconds": 1
+  },
+  "aliases": {
+    "basedir": "/workspace",
+    "command1": "/path/to/command1/command1",
+    "command2": "/path/to/command2/command2"
   }
 }
