@@ -26,7 +26,7 @@ func TestSantanderStmtdateToPoppit(t *testing.T) {
 	if len(msg.Commands) != 1 {
 		t.Fatalf("expected 1 command, got %d", len(msg.Commands))
 	}
-	if msg.Commands[0] != `stmtdate -rename "statement.pdf"` {
+	if msg.Commands[0] != `${stmtdate} -rename "statement.pdf"` {
 		t.Fatalf("unexpected command: %q", msg.Commands[0])
 	}
 	if msg.Metadata["taskName"] != santanderStmtdateTaskName {
