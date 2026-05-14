@@ -59,7 +59,7 @@ The Santander pipeline can be triggered with:
 ```json
 {
   "taskName": "santander:stmtdate",
-  "inputFile": "/workspace/incoming/statement.pdf"
+  "inputFile": "/workspace/incoming/File-2026-03.pdf"
 }
 ```
 
