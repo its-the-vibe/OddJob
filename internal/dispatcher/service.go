@@ -70,6 +70,11 @@ func (s *Service) consumeTasks(ctx context.Context) error {
 			continue
 		}
 
+		task.InputFile = s.cfg.ResolveAliases(task.InputFile)
+		for k, v := range task.Metadata {
+			task.Metadata[k] = s.cfg.ResolveAliases(v)
+		}
+
 		message, err := s.registry.ToPoppit(task, s.cfg.Poppit)
 		if err != nil {
 			s.logger.Printf("skip task %q: %v", task.TaskName, err)

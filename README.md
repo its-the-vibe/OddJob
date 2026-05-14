@@ -69,6 +69,27 @@ cp .env.example .env
 make run
 ```
 
+### Aliases
+
+The optional `aliases` section in `config.json` lets you define reusable keys that can be referenced elsewhere in the config or in incoming task messages using the `${key}` syntax:
+
+```json
+{
+  "aliases": {
+    "basedir": "/path/to/directory",
+    "command1": "/path/to/command1/command1"
+  },
+  "poppit": {
+    "dir": "${basedir}"
+  }
+}
+```
+
+Alias placeholders (`${key}`) are resolved in:
+
+- All `poppit` config fields (`repo`, `branch`, `dir`, `type`, `outputChannel`)
+- Incoming task message fields (`inputFile` and `metadata` values)
+
 ## Development
 
 ```bash
