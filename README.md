@@ -18,6 +18,8 @@ A simple, extensible Go task dispatcher that bridges Redis task messages to the 
   - `santander:stmtdate` runs `stmtdate -rename "<file>"`
   - chains to `santander:pdftoppm` using parsed `stmtdate` output
   - `santander:pdftoppm` runs `pdftoppm -png -r 300 "<file>" -f 2 "<file-without-ext>"` in the input file's base directory
+  - chains to `santander:stmtpng2tsv`, which runs `${stmtpng2tsv} -input "<file>.png" -output "<file>.tsv"` in the PNG file's directory
+  - chains to `santander:stmt2redis`, which runs `${stmt2redis} -f "<file>.tsv" -t santander` in `${basedir}/${orgname}/stmt2redis`
 - Extensible task transformer framework with a `hello:world` reference transformer
 - Dockerfile with `scratch` runtime image
 - Docker Compose service with `read_only: true`
@@ -52,6 +54,17 @@ The transformer emits a Poppit message:
 }
 ```
 
+The Santander pipeline can be triggered with:
+
+```json
+{
+  "taskName": "santander:stmtdate",
+  "inputFile": "/workspace/incoming/statement.pdf"
+}
+```
+
+Successful Santander runs chain automatically through `santander:pdftoppm`, `santander:stmtpng2tsv`, and `santander:stmt2redis`.
+
 ## Configuration
 
 1. Copy examples:
@@ -77,7 +90,10 @@ The optional `aliases` section in `config.json` lets you define reusable keys th
 {
   "aliases": {
     "basedir": "/path/to/directory",
-    "command1": "/path/to/command1/command1"
+    "orgname": "its-the-vibe",
+    "stmtdate": "/path/to/stmtdate",
+    "stmtpng2tsv": "/path/to/stmtpng2tsv",
+    "stmt2redis": "/path/to/stmt2redis"
   },
   "poppit": {
     "dir": "${basedir}"
@@ -88,6 +104,7 @@ The optional `aliases` section in `config.json` lets you define reusable keys th
 Alias placeholders (`${key}`) are resolved in:
 
 - All `poppit` config fields (`repo`, `branch`, `dir`, `type`, `outputChannel`)
+- Transformer-generated Poppit command strings and task-specific working directories
 - Incoming task message fields (`inputFile` and `metadata` values)
 
 ## Development

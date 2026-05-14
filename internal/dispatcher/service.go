@@ -84,6 +84,7 @@ func (s *Service) consumeTasks(ctx context.Context) error {
 		for i, cmd := range message.Commands {
 			message.Commands[i] = s.cfg.ResolveAliases(cmd)
 		}
+		message.Dir = s.cfg.ResolveAliases(message.Dir)
 
 		encoded, err := json.Marshal(message)
 		if err != nil {
