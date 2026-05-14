@@ -21,7 +21,9 @@
   },
   "aliases": {
     "basedir": "/workspace",
-    "command1": "/path/to/command1/command1",
-    "command2": "/path/to/command2/command2"
+    "orgname": "its-the-vibe",
+    "stmtdate": "/path/to/stmtdate",
+    "stmtpng2tsv": "/path/to/stmtpng2tsv",
+    "stmt2redis": "/path/to/stmt2redis"
   }
 }

@@ -38,6 +38,9 @@ func TestSantanderPdftoppmToPoppit(t *testing.T) {
 	if msg.Metadata["taskName"] != santanderPdftoppmTaskName {
 		t.Fatalf("expected metadata taskName %q, got %q", santanderPdftoppmTaskName, msg.Metadata["taskName"])
 	}
+	if msg.Metadata["pngFile"] != "/workspace/incoming/File-2026-03-2.png" {
+		t.Fatalf("expected metadata pngFile %q, got %q", "/workspace/incoming/File-2026-03-2.png", msg.Metadata["pngFile"])
+	}
 	if msg.Metadata["stmtdate"] != "2026-03" {
 		t.Fatalf("expected metadata stmtdate %q, got %q", "2026-03", msg.Metadata["stmtdate"])
 	}
@@ -68,5 +71,33 @@ func TestSantanderPdftoppmToPoppitSupportsInputFileWithSpaces(t *testing.T) {
 	}
 	if msg.Commands[0] != `pdftoppm -png -r 300 "My File-2026-03.pdf" -f 2 "My File-2026-03"` {
 		t.Fatalf("unexpected command: %q", msg.Commands[0])
+	}
+}
+
+func TestSantanderPdftoppmFromPoppitChainsToStmtpng2tsv(t *testing.T) {
+	transformer := NewSantanderPdftoppmTransformer()
+
+	task, ok, err := transformer.FromPoppit(PoppitOutput{
+		StatusCode: 0,
+		Metadata: map[string]string{
+			"taskName": santanderPdftoppmTaskName,
+			"pngFile":  "/workspace/incoming/File-2026-03-2.png",
+			"stmtdate": "2026-03",
+		},
+	})
+	if err != nil {
+		t.Fatalf("unexpected error: %v", err)
+	}
+	if !ok {
+		t.Fatalf("expected chained task")
+	}
+	if task.TaskName != santanderStmtpng2tsvTaskName {
+		t.Fatalf("expected taskName %q, got %q", santanderStmtpng2tsvTaskName, task.TaskName)
+	}
+	if task.InputFile != "/workspace/incoming/File-2026-03-2.png" {
+		t.Fatalf("unexpected inputFile: %q", task.InputFile)
+	}
+	if task.Metadata["stmtdate"] != "2026-03" {
+		t.Fatalf("expected stmtdate metadata %q, got %q", "2026-03", task.Metadata["stmtdate"])
 	}
 }

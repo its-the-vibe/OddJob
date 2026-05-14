@@ -47,6 +47,8 @@ func main() {
 		dispatcher.NewHelloWorldTransformer(),
 		dispatcher.NewSantanderStmtdateTransformer(),
 		dispatcher.NewSantanderPdftoppmTransformer(),
+		dispatcher.NewSantanderStmtpng2tsvTransformer(),
+		dispatcher.NewSantanderStmt2redisTransformer(),
 	)
 	service := dispatcher.NewService(cfg, client, registry, log.Default())
 
