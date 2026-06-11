@@ -30,13 +30,8 @@ func (s *SantanderStmtpng2tsvTransformer) ToPoppit(task TaskMessage, cfg config.
 		return PoppitMessage{}, fmt.Errorf("inputFile is required for task %q", santanderStmtpng2tsvTaskName)
 	}
 
-	dir := filepath.Dir(inputFile)
-	inputBase := filepath.Base(inputFile)
-	outputBase := strings.TrimSuffix(inputBase, filepath.Ext(inputBase))
-	if outputBase == "" {
-		return PoppitMessage{}, fmt.Errorf("invalid inputFile for task %q: %q", santanderStmtpng2tsvTaskName, inputFile)
-	}
-	outputFile := filepath.Join(dir, outputBase+".tsv")
+	dir := "${stmtpng2tsvDir}"
+	outputFile := strings.TrimSuffix(inputFile, filepath.Ext(inputFile)) + ".tsv"
 
 	metadata := make(map[string]string, len(task.Metadata)+2)
 	for key, value := range task.Metadata {
@@ -51,7 +46,7 @@ func (s *SantanderStmtpng2tsvTransformer) ToPoppit(task TaskMessage, cfg config.
 		Type:   cfg.Type,
 		Dir:    dir,
 		Commands: []string{
-			fmt.Sprintf(`${stmtpng2tsv} -input %q -output %q`, inputBase, outputBase+".tsv"),
+			fmt.Sprintf(`stmtpng2tsv -input %q -output %q`, inputFile, outputFile),
 		},
 		Metadata: metadata,
 	}, nil
