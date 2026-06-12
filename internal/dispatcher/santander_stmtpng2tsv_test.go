@@ -32,7 +32,7 @@ func TestSantanderStmtpng2tsvToPoppit(t *testing.T) {
 	if len(msg.Commands) != 1 {
 		t.Fatalf("expected 1 command, got %d", len(msg.Commands))
 	}
-	if msg.Commands[0] != `stmtpng2tsv -input "/workspace/incoming/File-2026-03-2.png" -output "/workspace/incoming/File-2026-03-2.tsv"` {
+	if msg.Commands[0] != `./stmtpng2tsv -input "/workspace/incoming/File-2026-03-2.png" -output "/workspace/incoming/File-2026-03-2.tsv"` {
 		t.Fatalf("unexpected command: %q", msg.Commands[0])
 	}
 	if msg.Metadata["taskName"] != santanderStmtpng2tsvTaskName {

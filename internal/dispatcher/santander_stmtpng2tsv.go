@@ -46,7 +46,7 @@ func (s *SantanderStmtpng2tsvTransformer) ToPoppit(task TaskMessage, cfg config.
 		Type:   cfg.Type,
 		Dir:    dir,
 		Commands: []string{
-			fmt.Sprintf(`stmtpng2tsv -input %q -output %q`, inputFile, outputFile),
+			fmt.Sprintf(`./stmtpng2tsv -input %q -output %q`, inputFile, outputFile),
 		},
 		Metadata: metadata,
 	}, nil
