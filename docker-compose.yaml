@@ -3,7 +3,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: oddjob:latest
+    image: ghcr.io/its-the-vibe/oddjob:latest
+    pull_policy: always
     read_only: true
     restart: on-failure:10
     extra_hosts:
