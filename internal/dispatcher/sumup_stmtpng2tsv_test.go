@@ -17,7 +17,7 @@ func TestSumupStmtpng2tsvToPoppit(t *testing.T) {
 
 	msg, err := transformer.ToPoppit(TaskMessage{
 		TaskName:  sumupStmtpng2tsvTaskName,
-		InputFile: "/workspace/incoming/SumUp-Statement-Aug-26-1.png",
+		InputFile: "/workspace/incoming/SumUp-Statement-Aug-26-?.png",
 		Metadata: map[string]string{
 			"stmtdate": "2026-08",
 		},
@@ -62,7 +62,7 @@ func TestSumupStmtpng2tsvToPoppitSupportsInputFileWithSpaces(t *testing.T) {
 
 	msg, err := transformer.ToPoppit(TaskMessage{
 		TaskName:  sumupStmtpng2tsvTaskName,
-		InputFile: "/workspace/incoming/My SumUp-Statement-Aug-26-1.png",
+		InputFile: "/workspace/incoming/My SumUp-Statement-Aug-26-?.png",
 	}, config.PoppitConfig{})
 	if err != nil {
 		t.Fatalf("unexpected error: %v", err)

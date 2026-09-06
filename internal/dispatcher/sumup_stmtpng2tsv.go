@@ -33,11 +33,16 @@ func (s *SumupStmtpng2tsvTransformer) ToPoppit(task TaskMessage, cfg config.Popp
 
 	dir := "${stmtpng2tsvDir}"
 
-	// Remove the extension and page number suffix (e.g., "/path/SumUp-Statement-Aug-26-1.png" -> "/path/SumUp-Statement-Aug-26")
+	// Remove the extension and page/wildcard suffix
+	// e.g., "/path/SumUp-Statement-Aug-26-?.png" -> "/path/SumUp-Statement-Aug-26"
 	baseWithoutExt := strings.TrimSuffix(inputFile, filepath.Ext(inputFile))
 	baseWithoutPage := baseWithoutExt
-	// Remove the page number suffix if it exists (e.g., "-1", "-2", etc.)
-	if len(baseWithoutExt) > 2 && baseWithoutExt[len(baseWithoutExt)-2] == '-' {
+
+	// Try to remove the wildcard suffix first (e.g., "-?")
+	if strings.HasSuffix(baseWithoutExt, "-?") {
+		baseWithoutPage = strings.TrimSuffix(baseWithoutExt, "-?")
+	} else if len(baseWithoutExt) > 2 && baseWithoutExt[len(baseWithoutExt)-2] == '-' {
+		// Fall back to removing page number suffix if it exists (e.g., "-1", "-2", etc.)
 		if baseWithoutExt[len(baseWithoutExt)-1] >= '0' && baseWithoutExt[len(baseWithoutExt)-1] <= '9' {
 			baseWithoutPage = baseWithoutExt[:len(baseWithoutExt)-2]
 		}
