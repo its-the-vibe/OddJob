@@ -64,7 +64,7 @@ func (s *SumupStmtpng2tsvTransformer) ToPoppit(task TaskMessage, cfg config.Popp
 		Type:   cfg.Type,
 		Dir:    dir,
 		Commands: []string{
-			fmt.Sprintf(`./stmtpng2tsv -output %s %s`, outputFile, inputPattern),
+			fmt.Sprintf(`./stmtpng2tsv -format sumup -output %s %s`, outputFile, inputPattern),
 		},
 		Metadata: metadata,
 	}, nil

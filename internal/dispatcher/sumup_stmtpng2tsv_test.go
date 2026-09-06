@@ -32,7 +32,7 @@ func TestSumupStmtpng2tsvToPoppit(t *testing.T) {
 	if len(msg.Commands) != 1 {
 		t.Fatalf("expected 1 command, got %d", len(msg.Commands))
 	}
-	expectedCmd := `./stmtpng2tsv -output /workspace/incoming/SumUp-Statement-Aug-26.tsv /workspace/incoming/SumUp-Statement-Aug-26-?.png`
+	expectedCmd := `./stmtpng2tsv -format sumup -output /workspace/incoming/SumUp-Statement-Aug-26.tsv /workspace/incoming/SumUp-Statement-Aug-26-?.png`
 	if msg.Commands[0] != expectedCmd {
 		t.Fatalf("unexpected command:\nexpected: %q\ngot:      %q", expectedCmd, msg.Commands[0])
 	}
@@ -70,7 +70,7 @@ func TestSumupStmtpng2tsvToPoppitSupportsInputFileWithSpaces(t *testing.T) {
 	if msg.Dir != "${stmtpng2tsvDir}" {
 		t.Fatalf("unexpected dir: %q", msg.Dir)
 	}
-	expectedCmd := `./stmtpng2tsv -output /workspace/incoming/My SumUp-Statement-Aug-26.tsv /workspace/incoming/My SumUp-Statement-Aug-26-?.png`
+	expectedCmd := `./stmtpng2tsv -format sumup -output /workspace/incoming/My SumUp-Statement-Aug-26.tsv /workspace/incoming/My SumUp-Statement-Aug-26-?.png`
 	if msg.Commands[0] != expectedCmd {
 		t.Fatalf("unexpected command:\nexpected: %q\ngot:      %q", expectedCmd, msg.Commands[0])
 	}
