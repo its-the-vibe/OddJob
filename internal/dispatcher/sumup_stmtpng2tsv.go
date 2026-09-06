@@ -9,7 +9,6 @@ import (
 )
 
 const sumupStmtpng2tsvTaskName = "sumup:stmtpng2tsv"
-const sumupStmt2redisTaskName = "sumup:stmt2redis"
 
 type SumupStmtpng2tsvTransformer struct{}
 
