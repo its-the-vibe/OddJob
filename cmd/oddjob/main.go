@@ -50,6 +50,7 @@ func main() {
 		dispatcher.NewSantanderStmtpng2tsvTransformer(),
 		dispatcher.NewSantanderStmt2redisTransformer(),
 		dispatcher.NewSumupPdf2ppmTransformer(),
+		dispatcher.NewSumupStmtpng2tsvTransformer(),
 	)
 	service := dispatcher.NewService(cfg, client, registry, log.Default())
 

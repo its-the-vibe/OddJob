@@ -9,7 +9,6 @@ import (
 )
 
 const sumupPdf2ppmTaskName = "sumup:pdf2ppm"
-const sumupStmtpng2tsvTaskName = "sumup:stmtpng2tsv"
 
 type SumupPdf2ppmTransformer struct{}
 
