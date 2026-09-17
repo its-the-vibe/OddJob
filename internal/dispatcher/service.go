@@ -61,7 +61,9 @@ func (s *Service) consumeTasks(ctx context.Context) error {
 				time.Sleep(s.cfg.PollInterval())
 				continue
 			}
-			return fmt.Errorf("lpop task queue: %w", err)
+			s.logger.Printf("lpop task queue: %v", err)
+			time.Sleep(1 * time.Second)
+			continue
 		}
 
 		var task TaskMessage
