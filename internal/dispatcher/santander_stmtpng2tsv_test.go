@@ -58,7 +58,7 @@ func TestSantanderStmtpng2tsvFromPoppitChainsToStmt2redis(t *testing.T) {
 
 	task, ok, err := transformer.FromPoppit(PoppitOutput{
 		StatusCode: 0,
-		Metadata: map[string]string{
+		Metadata: map[string]interface{}{
 			"taskName": santanderStmtpng2tsvTaskName,
 			"tsvFile":  "/workspace/incoming/File-2026-03-2.tsv",
 			"stmtdate": "2026-03",

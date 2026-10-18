@@ -81,7 +81,7 @@ func TestSumupStmtpng2tsvFromPoppitChainsToStmt2redis(t *testing.T) {
 
 	task, ok, err := transformer.FromPoppit(PoppitOutput{
 		StatusCode: 0,
-		Metadata: map[string]string{
+		Metadata: map[string]interface{}{
 			"taskName": sumupStmtpng2tsvTaskName,
 			"tsvFile":  "/workspace/incoming/SumUp-Statement-Aug-26.tsv",
 			"stmtdate": "2026-08",
@@ -109,7 +109,7 @@ func TestSumupStmtpng2tsvFromPoppitReturnsErrorWhenTsvFileEmpty(t *testing.T) {
 
 	_, ok, err := transformer.FromPoppit(PoppitOutput{
 		StatusCode: 0,
-		Metadata: map[string]string{
+		Metadata: map[string]interface{}{
 			"taskName": sumupStmtpng2tsvTaskName,
 		},
 	})
@@ -126,7 +126,7 @@ func TestSumupStmtpng2tsvFromPoppitReturnsNilWhenTaskNameMismatch(t *testing.T) 
 
 	task, ok, err := transformer.FromPoppit(PoppitOutput{
 		StatusCode: 0,
-		Metadata: map[string]string{
+		Metadata: map[string]interface{}{
 			"taskName": "different:task",
 		},
 	})
@@ -146,7 +146,7 @@ func TestSumupStmtpng2tsvFromPoppitReturnsNilWhenStatusCodeNonZero(t *testing.T)
 
 	task, ok, err := transformer.FromPoppit(PoppitOutput{
 		StatusCode: 1,
-		Metadata: map[string]string{
+		Metadata: map[string]interface{}{
 			"taskName": sumupStmtpng2tsvTaskName,
 			"tsvFile":  "/workspace/incoming/SumUp-Statement-Aug-26.tsv",
 		},

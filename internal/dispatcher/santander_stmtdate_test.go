@@ -51,7 +51,7 @@ func TestSantanderStmtdateFromPoppitChainsToPdftoppm(t *testing.T) {
 		StatusCode: 0,
 		Output: `2026-03
 renamed: /workspace/incoming/File-2026-03.pdf`,
-		Metadata: map[string]string{
+		Metadata: map[string]interface{}{
 			"taskName": santanderStmtdateTaskName,
 		},
 	})
@@ -78,7 +78,7 @@ func TestSantanderStmtdateFromPoppitReturnsErrorOnMalformedOutput(t *testing.T) 
 	task, ok, err := transformer.FromPoppit(PoppitOutput{
 		StatusCode: 0,
 		Output:     "2026-03",
-		Metadata: map[string]string{
+		Metadata: map[string]interface{}{
 			"taskName": santanderStmtdateTaskName,
 		},
 	})
@@ -100,7 +100,7 @@ func TestSantanderStmtdateFromPoppitParsesRenamedPathWithSpaces(t *testing.T) {
 		StatusCode: 0,
 		Output: `2026-03
 renamed: /workspace/incoming/My File-2026-03.pdf`,
-		Metadata: map[string]string{
+		Metadata: map[string]interface{}{
 			"taskName": santanderStmtdateTaskName,
 		},
 	})

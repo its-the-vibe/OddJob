@@ -58,20 +58,20 @@ func (s *SumupPdf2ppmTransformer) ToPoppit(task TaskMessage, cfg config.PoppitCo
 }
 
 func (s *SumupPdf2ppmTransformer) FromPoppit(output PoppitOutput) (*TaskMessage, bool, error) {
-	if output.Metadata["taskName"] != sumupPdf2ppmTaskName {
+	if metadataString(output.Metadata, "taskName") != sumupPdf2ppmTaskName {
 		return nil, false, nil
 	}
 	if output.StatusCode != 0 {
 		return nil, false, nil
 	}
 
-	pngFile := strings.TrimSpace(output.Metadata["pngFile"])
+	pngFile := strings.TrimSpace(metadataString(output.Metadata, "pngFile"))
 	if pngFile == "" {
 		return nil, false, fmt.Errorf("missing pngFile metadata for task %q", sumupPdf2ppmTaskName)
 	}
 
 	metadata := map[string]string{}
-	if stmtdate := strings.TrimSpace(output.Metadata["stmtdate"]); stmtdate != "" {
+	if stmtdate := strings.TrimSpace(metadataString(output.Metadata, "stmtdate")); stmtdate != "" {
 		metadata["stmtdate"] = stmtdate
 	}
 

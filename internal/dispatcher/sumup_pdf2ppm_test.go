@@ -74,7 +74,7 @@ func TestSumupPdftoppmFromPoppitChainsToStmtpng2tsv(t *testing.T) {
 
 	task, ok, err := transformer.FromPoppit(PoppitOutput{
 		StatusCode: 0,
-		Metadata: map[string]string{
+		Metadata: map[string]interface{}{
 			"taskName": sumupPdf2ppmTaskName,
 			"pngFile":  "/workspace/incoming/SumUp-Statement-Aug-26-1.png",
 		},
@@ -98,7 +98,7 @@ func TestSumupPdftoppmFromPoppitIgnoresMetadataFromPrevious(t *testing.T) {
 
 	task, ok, err := transformer.FromPoppit(PoppitOutput{
 		StatusCode: 0,
-		Metadata: map[string]string{
+		Metadata: map[string]interface{}{
 			"taskName": sumupPdf2ppmTaskName,
 			"pngFile":  "/workspace/incoming/SumUp-Statement-Aug-26-1.png",
 			"stmtdate": "2026-08",
@@ -120,7 +120,7 @@ func TestSumupPdftoppmFromPoppitReturnsNilWhenTaskNameMismatch(t *testing.T) {
 
 	task, ok, err := transformer.FromPoppit(PoppitOutput{
 		StatusCode: 0,
-		Metadata: map[string]string{
+		Metadata: map[string]interface{}{
 			"taskName": "different:task",
 		},
 	})
@@ -140,7 +140,7 @@ func TestSumupPdftoppmFromPoppitReturnsNilWhenStatusCodeNonZero(t *testing.T) {
 
 	task, ok, err := transformer.FromPoppit(PoppitOutput{
 		StatusCode: 1,
-		Metadata: map[string]string{
+		Metadata: map[string]interface{}{
 			"taskName": sumupPdf2ppmTaskName,
 			"pngFile":  "/workspace/incoming/SumUp-Statement-Aug-26-1.png",
 		},

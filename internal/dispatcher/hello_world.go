@@ -43,14 +43,14 @@ func (h *HelloWorldTransformer) ToPoppit(task TaskMessage, cfg config.PoppitConf
 }
 
 func (h *HelloWorldTransformer) FromPoppit(output PoppitOutput) (*TaskMessage, bool, error) {
-	if output.Metadata["taskName"] != helloTaskName {
+	if metadataString(output.Metadata, "taskName") != helloTaskName {
 		return nil, false, nil
 	}
 	if output.StatusCode != 0 {
 		return nil, false, nil
 	}
 
-	nextTask := strings.TrimSpace(output.Metadata["nextTask"])
+	nextTask := strings.TrimSpace(metadataString(output.Metadata, "nextTask"))
 	if nextTask == "" {
 		return nil, false, nil
 	}
