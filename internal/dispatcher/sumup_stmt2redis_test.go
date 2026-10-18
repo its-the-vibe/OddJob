@@ -81,7 +81,7 @@ func TestSumupStmt2redisFromPoppit(t *testing.T) {
 
 	task, ok, err := transformer.FromPoppit(PoppitOutput{
 		StatusCode: 0,
-		Metadata: map[string]string{
+		Metadata: map[string]interface{}{
 			"taskName": sumupStmt2redisTaskName,
 		},
 	})

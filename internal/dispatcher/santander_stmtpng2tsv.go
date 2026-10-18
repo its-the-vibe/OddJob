@@ -53,20 +53,20 @@ func (s *SantanderStmtpng2tsvTransformer) ToPoppit(task TaskMessage, cfg config.
 }
 
 func (s *SantanderStmtpng2tsvTransformer) FromPoppit(output PoppitOutput) (*TaskMessage, bool, error) {
-	if output.Metadata["taskName"] != santanderStmtpng2tsvTaskName {
+	if metadataString(output.Metadata, "taskName") != santanderStmtpng2tsvTaskName {
 		return nil, false, nil
 	}
 	if output.StatusCode != 0 {
 		return nil, false, nil
 	}
 
-	tsvFile := strings.TrimSpace(output.Metadata["tsvFile"])
+	tsvFile := strings.TrimSpace(metadataString(output.Metadata, "tsvFile"))
 	if tsvFile == "" {
 		return nil, false, fmt.Errorf("missing tsvFile metadata for task %q", santanderStmtpng2tsvTaskName)
 	}
 
 	metadata := map[string]string{}
-	if stmtdate := strings.TrimSpace(output.Metadata["stmtdate"]); stmtdate != "" {
+	if stmtdate := strings.TrimSpace(metadataString(output.Metadata, "stmtdate")); stmtdate != "" {
 		metadata["stmtdate"] = stmtdate
 	}
 

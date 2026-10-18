@@ -79,7 +79,7 @@ func TestSantanderPdftoppmFromPoppitChainsToStmtpng2tsv(t *testing.T) {
 
 	task, ok, err := transformer.FromPoppit(PoppitOutput{
 		StatusCode: 0,
-		Metadata: map[string]string{
+		Metadata: map[string]interface{}{
 			"taskName": santanderPdftoppmTaskName,
 			"pngFile":  "/workspace/incoming/File-2026-03-2.png",
 			"stmtdate": "2026-03",

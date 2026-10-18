@@ -42,7 +42,7 @@ func TestHelloWorldFromPoppitChainsWhenRequested(t *testing.T) {
 		Type:       "odd:job",
 		StatusCode: 0,
 		Output:     "next-input",
-		Metadata: map[string]string{
+		Metadata: map[string]interface{}{
 			"taskName": helloTaskName,
 			"nextTask": "downstream:task",
 		},

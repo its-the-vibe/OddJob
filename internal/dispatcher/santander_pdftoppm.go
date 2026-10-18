@@ -58,20 +58,20 @@ func (s *SantanderPdftoppmTransformer) ToPoppit(task TaskMessage, cfg config.Pop
 }
 
 func (s *SantanderPdftoppmTransformer) FromPoppit(output PoppitOutput) (*TaskMessage, bool, error) {
-	if output.Metadata["taskName"] != santanderPdftoppmTaskName {
+	if metadataString(output.Metadata, "taskName") != santanderPdftoppmTaskName {
 		return nil, false, nil
 	}
 	if output.StatusCode != 0 {
 		return nil, false, nil
 	}
 
-	pngFile := strings.TrimSpace(output.Metadata["pngFile"])
+	pngFile := strings.TrimSpace(metadataString(output.Metadata, "pngFile"))
 	if pngFile == "" {
 		return nil, false, fmt.Errorf("missing pngFile metadata for task %q", santanderPdftoppmTaskName)
 	}
 
 	metadata := map[string]string{}
-	if stmtdate := strings.TrimSpace(output.Metadata["stmtdate"]); stmtdate != "" {
+	if stmtdate := strings.TrimSpace(metadataString(output.Metadata, "stmtdate")); stmtdate != "" {
 		metadata["stmtdate"] = stmtdate
 	}
 

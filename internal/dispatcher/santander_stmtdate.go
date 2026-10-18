@@ -42,7 +42,7 @@ func (s *SantanderStmtdateTransformer) ToPoppit(task TaskMessage, cfg config.Pop
 }
 
 func (s *SantanderStmtdateTransformer) FromPoppit(output PoppitOutput) (*TaskMessage, bool, error) {
-	if output.Metadata["taskName"] != santanderStmtdateTaskName {
+	if metadataString(output.Metadata, "taskName") != santanderStmtdateTaskName {
 		return nil, false, nil
 	}
 	if output.StatusCode != 0 {
